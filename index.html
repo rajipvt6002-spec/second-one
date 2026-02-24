@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Love ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1em;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #ff4e50;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 200px;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+#countdown {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.heart {
+    position: fixed;
+    top: -10px;
+    color: red;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+
+.hidden {
+    display: none;
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Happy 19th Birthday, MY LOVE 🎂❤️</h1>
+
+    <p>You are my favorite person in this world. I’m so lucky to have you.</p>
+
+    <div id="countdown"></div>
+
+    <button onclick="showSecret()">Click for Secret Message 💌</button>
+
+    <div id="secret" class="hidden">
+        You are my forever, my safe place, my everything.  
+        I love you more every single day. 💕
+    </div>
+
+    <h2>Our Memories 📸</h2>
+    <div class="gallery">
+        <img src="/images/wallpaper.jpg">
+        <img src="photo2.jpg">
+        <img src="photo3.jpg">
+    </div>
+
+    <audio autoplay loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+<script>
+// Password Protection
+let password = prompt("Enter the secret password 💖");
+if(password !== "JERA"){
+    document.body.innerHTML = "<h1>Access Denied 💔</h1>";
+}
+
+// Countdown Timer
+let birthday = new Date("March 30, 2026 00:00:00").getTime();
+setInterval(function() {
+    let now = new Date().getTime();
+    let distance = birthday - now;
+
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("countdown").innerHTML =
+        "Countdown to your special day: " + days + " days 🎉";
+}, 1000);
+
+// Floating Hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+setInterval(createHeart, 300);
+
+// Secret message
+function showSecret(){
+    document.getElementById("secret").style.display = "block";
+}
+</script>
+
+</body>
+</html>
