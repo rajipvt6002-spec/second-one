@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoulSync - Couples Quiz</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+    background-size: 400% 400%;
+    animation: gradient 12s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.container {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    color: white;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.question {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.options button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.options button:hover {
+    transform: scale(1.05);
+}
+
+.btn-start {
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background: white;
+    color: #ff5e9c;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-start:hover {
+    transform: scale(1.1);
+}
+
+.result {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 24px;
+    animation: float 8s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(0); opacity:1;}
+    100% {transform: translateY(-100vh); opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💖 SoulSync Quiz 💖</h1>
+    <div id="quiz">
+        <button class="btn-start" onclick="startQuiz()">Start Love Test</button>
+    </div>
+</div>
+
+<script>
+
+const questions = [
+    {
+        question: "Who says 'I love you' first?",
+        options: ["Me", "My Partner"]
+    },
+    {
+        question: "Ideal date night?",
+        options: ["Candlelight Dinner", "Netflix & Chill"]
+    },
+    {
+        question: "Who gets jealous first?",
+        options: ["Me 😅", "My Partner 😏"]
+    },
+    {
+        question: "Dream vacation?",
+        options: ["Beach Paradise 🌊", "Mountain Escape 🏔"]
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function startQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    const quiz = document.getElementById("quiz");
+    const q = questions[currentQuestion];
+
+    quiz.innerHTML = `
+        <div class="question">${q.question}</div>
+        <div class="options">
+            ${q.options.map((option, index) =>
+                `<button onclick="selectAnswer(${index})">${option}</button>`
+            ).join("")}
+        </div>
+    `;
+}
+
+function selectAnswer(index) {
+    if(index === 0) score++;
+    currentQuestion++;
+
+    if(currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    const percentage = Math.round((score / questions.length) * 100);
+    const quiz = document.getElementById("quiz");
+
+    let message;
+
+    if(percentage >= 75) {
+        message = "🔥 Twin Flames! Your love is powerful & passionate!";
+    } else if(percentage >= 50) {
+        message = "💞 Perfectly Balanced! You complement each other beautifully.";
+    } else {
+        message = "🌸 Opposites Attract! Differences make your love unique.";
+    }
+
+    quiz.innerHTML = `
+        <div class="result">
+            Your Compatibility: ${percentage}% <br><br>
+            ${message}
+        </div>
+        <br>
+        <button class="btn-start" onclick="startQuiz()">Try Again</button>
+    `;
+}
+
+/* Create floating hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+setInterval(createHeart, 800);
+
+</script>
+
+</body>
+</html>
