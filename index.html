@@ -3,131 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday My Love ❤️</title>
-
+<title>For My Love ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(to right, #ff758c, #ff7eb3);
-    color: white;
-    overflow-x: hidden;
-}
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: 'Poppins', sans-serif;
+    }
 
-.container {
-    padding: 40px 20px;
-}
+    body{
+        height:100vh;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
+    }
 
-h1 {
-    font-size: 3em;
-}
+    .card{
+        background:white;
+        padding:40px;
+        border-radius:20px;
+        text-align:center;
+        width:350px;
+        box-shadow:0 15px 35px rgba(0,0,0,0.2);
+        animation: float 4s ease-in-out infinite;
+    }
 
-button {
-    padding: 15px 30px;
-    font-size: 1em;
-    border: none;
-    border-radius: 30px;
-    background: white;
-    color: #ff4e50;
-    cursor: pointer;
-    margin-top: 20px;
-}
+    h1{
+        color:#ff4b5c;
+        margin-bottom:15px;
+    }
 
-.gallery img {
-    width: 200px;
-    margin: 10px;
-    border-radius: 15px;
-}
+    p{
+        font-size:16px;
+        color:#555;
+        margin-bottom:20px;
+    }
 
-#countdown {
-    font-size: 1.5em;
-    margin-top: 20px;
-}
+    button{
+        padding:10px 20px;
+        border:none;
+        border-radius:30px;
+        background:#ff4b5c;
+        color:white;
+        font-size:16px;
+        cursor:pointer;
+        transition:0.3s;
+    }
 
-.heart {
-    position: fixed;
-    top: -10px;
-    color: red;
-    animation: fall linear infinite;
-}
+    button:hover{
+        background:#ff1e3c;
+        transform:scale(1.1);
+    }
 
-@keyframes fall {
-    to { transform: translateY(100vh); }
-}
+    .hidden-message{
+        margin-top:20px;
+        display:none;
+        font-weight:500;
+        color:#ff4b5c;
+        animation: fadeIn 2s ease forwards;
+    }
 
-.hidden {
-    display: none;
-    margin-top: 30px;
-}
+    @keyframes float{
+        0%{transform:translateY(0px);}
+        50%{transform:translateY(-15px);}
+        100%{transform:translateY(0px);}
+    }
+
+    @keyframes fadeIn{
+        from{opacity:0;}
+        to{opacity:1;}
+    }
+
+    .hearts{
+        position:absolute;
+        bottom:0;
+        font-size:20px;
+        animation: rise 5s linear infinite;
+        color:#ff4b5c;
+    }
+
+    @keyframes rise{
+        0%{transform:translateY(0); opacity:1;}
+        100%{transform:translateY(-800px); opacity:0;}
+    }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h1>Happy 19th Birthday, MY LOVE 🎂❤️</h1>
-
-    <p>You are my favorite person in this world. I’m so lucky to have you.</p>
-
-    <div id="countdown"></div>
-
-    <button onclick="showSecret()">Click for Secret Message 💌</button>
-
-    <div id="secret" class="hidden">
-        You are my forever, my safe place, my everything.  
-        I love you more every single day. 💕
+<div class="card">
+    <h1>Hi My Love ❤️</h1>
+    <p>You are the best thing that ever happened to me.  
+    Thank you for being my happiness every day 💕</p>
+    <button onclick="showMessage()">Click Me 💌</button>
+    <div class="hidden-message" id="loveMessage">
+        I love you more than words can say 💖 Forever yours.
     </div>
-
-    <h2>Our Memories 📸</h2>
-    <div class="gallery">
-        <img src="/images/wallpaper.jpg">
-        <img src="photo2.jpg">
-        <img src="photo3.jpg">
-    </div>
-
-    <audio autoplay loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
 </div>
 
 <script>
-// Password Protection
-let password = prompt("Enter the secret password 💖");
-if(password !== "JERA"){
-    document.body.innerHTML = "<h1>Access Denied 💔</h1>";
+function showMessage(){
+    document.getElementById("loveMessage").style.display="block";
 }
 
-// Countdown Timer
-let birthday = new Date("March 30, 2026 00:00:00").getTime();
-setInterval(function() {
-    let now = new Date().getTime();
-    let distance = birthday - now;
-
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("countdown").innerHTML =
-        "Countdown to your special day: " + days + " days 🎉";
-}, 1000);
-
-// Floating Hearts
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
+// Floating hearts
+setInterval(function(){
+    var heart = document.createElement("div");
+    heart.className = "hearts";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+    heart.innerHTML = "❤️";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
+    setTimeout(function(){
         heart.remove();
-    }, 5000);
-}
-setInterval(createHeart, 300);
-
-// Secret message
-function showSecret(){
-    document.getElementById("secret").style.display = "block";
-}
+    },5000);
+},500);
 </script>
 
 </body>
